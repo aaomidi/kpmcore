@@ -181,6 +181,16 @@ QString luks::passphrase() const
     return m_passphrase;
 }
 
+void luks::setPbbkdf(const QString& pbkdf)
+{
+  m_pbkdf = pbkdf;
+}
+
+QString luks::passphrase() const
+{
+  return m_pbkdf;
+}
+
 bool luks::canMount(const QString&, const QString& mountPoint) const
 {
     return m_isCryptOpen &&

@@ -141,6 +141,9 @@ public:
     void setPassphrase(const QString&);
     QString passphrase() const;
 
+    void setPbkdf(const QString&);
+    QString pbkdf() const;
+
     bool canMount(const QString&, const QString&) const override;
     bool canUnmount(const QString&) const override;
     bool isMounted() const;
@@ -206,6 +209,7 @@ protected:
     mutable bool m_isCryptOpen;
     mutable bool m_cryptsetupFound;
     QString m_passphrase;
+    QString m_pbkdf;
     bool m_isMounted;
 
     QString m_MapperName;

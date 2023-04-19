@@ -39,12 +39,18 @@ bool luks2::create(Report& report, const QString& deviceNode)
     Q_ASSERT(m_innerFs);
     Q_ASSERT(!m_passphrase.isEmpty());
 
+    if m_pbkdf.isEmpty()
+    {
+        m_pbkdf = QStringLiteral("argon2id");
+    }
+
     ExternalCommand createCmd(report, QStringLiteral("cryptsetup"),
                               { QStringLiteral("-s"),
                                 QStringLiteral("512"),
                                 QStringLiteral("--batch-mode"),
                                 QStringLiteral("--force-password"),
                                 QStringLiteral("--type"), QStringLiteral("luks2"),
+                                QStringLiteral("--pbkdf"), m_pbkdf,
                                 QStringLiteral("luksFormat"),
                                 deviceNode });
     if (!( createCmd.write(m_passphrase.toLocal8Bit() + '\n') &&
